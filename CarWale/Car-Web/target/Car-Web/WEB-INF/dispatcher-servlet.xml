@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+     http://www.springframework.org/schema/aop 
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+    http://www.springframework.org/schema/util http://wwsw.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<context:component-scan
+		base-package="com.pp.repo" />
+	<context:component-scan
+		base-package="com.pp.service" />
+	<context:component-scan
+		base-package="com.pp.controller" />
+	<context:component-scan
+		base-package="com.pp.validator" />
+	<context:component-scan base-package="com.pp.ws" />
+
+	<mvc:annotation-driven />
+	<context:annotation-config />
+	<aop:aspectj-autoproxy />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="viewClass">
+			<value>
+				org.springframework.web.servlet.view.tiles2.TilesView
+			</value>
+		</property>
+	</bean>
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en_US" />
+	</bean>
+
+	<mvc:interceptors>
+
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="language" />
+		</bean>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/**" /><!-- Scenario 1 -->
+			<mvc:exclude-mapping path="/userSignIn.do*" />
+			<mvc:exclude-mapping path="/ShowRegistration.do" />
+			<mvc:exclude-mapping path="/ws.do"></mvc:exclude-mapping>
+			<mvc:exclude-mapping path="/ws/save.do" />
+			<mvc:exclude-mapping path="/ws/update/{id}.do" />
+			<mvc:exclude-mapping path="/ws/delete/{id}.do" />
+			<bean class="com.pp.interceptor.SessionInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/**"></mvc:mapping>
+			<bean class="com.pp.interceptor.WebServiceInterceptor" />
+		</mvc:interceptor>
+
+		<!-- <mvc:interceptor> <mvc:mapping path="/**"/>Scenario 1 <mvc:exclude-mapping 
+			path="/userSignIn.do*"/> <mvc:exclude-mapping path="/ShowRegistration.do"/> 
+			<bean class="com.pp.interceptor.EmailInterceptor" /> </mvc:interceptor> -->
+
+
+
+	</mvc:interceptors>
+
+</beans>

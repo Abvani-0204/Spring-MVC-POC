@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"  
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">  
+        
+<tiles-definitions>
+
+<!-- Mapping for Base Template Layout Page -->
+
+<definition name="baseTemplate" id="baseTemplate" template="/WEB-INF/Layout/baseLayout.jsp">
+<put-attribute name="header" value="/WEB-INF/Layout/header.jsp" />
+<put-attribute name="body" value="${body}" />
+<put-attribute name="footer" value="/WEB-INF/Layout/footer.jsp" />
+</definition>
+
+<!-- Mapping for Login Page -->
+
+<definition name="Login" id="Login" extends="baseTemplate">
+<put-attribute name="body" value="/WEB-INF/Jsp/Login.jsp" />
+</definition>
+
+<!-- Mapping for Registration Page -->
+<definition name="Registration" id="Registration" extends="baseTemplate">
+<put-attribute name="body" value="/WEB-INF/Jsp/Registration.jsp" />
+</definition>
+
+<!-- Mapping for Product Page -->
+<definition name="Product" id="Product" extends="baseTemplate">
+<put-attribute name="body" value="/WEB-INF/Jsp/Product.jsp" />
+</definition>
+
+
+</tiles-definitions>

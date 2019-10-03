@@ -1,0 +1,7 @@
+com\pp\repo\ProductRepository1.class
+com\pp\model\Product.class
+com\pp\repo\LoginRepository.class
+com\pp\model\WebServiceModel.class
+com\pp\repo\WebServiceRepository.class
+com\pp\model\User.class
+com\pp\repo\RegistrationRepository.class
